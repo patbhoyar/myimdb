@@ -11,6 +11,11 @@
 |
 */
 
+Route::resource('genres', 'GenreController');
+Route::resource('languages', 'LanguageController');
+Route::resource('movies', 'MovieController');
+Route::resource('actors', 'ActorController');
+
 Route::get('/', function()
 {
 	return View::make('hello');

@@ -3,7 +3,12 @@
 	"description": "The Laravel Framework.",
 	"keywords": ["framework", "laravel"],
 	"require": {
-		"laravel/framework": "4.0.*"
+	    "laravel/framework": "4.0.*",
+            "components/jquery": "1.9.1",
+            "hearsay/require-js-bundle": "v1.0.6",
+            "components/underscore": "1.5.2",
+            "components/backbone": "1.0.0",
+            "components/bootstrap": "3.0.0"
 	},
 	"autoload": {
 		"classmap": [
