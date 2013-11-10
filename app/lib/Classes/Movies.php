@@ -29,21 +29,6 @@ class Movies {
         }
     }
     
-    private static function addLanguages($movieId, $language){
-        
-        $chk = DB::table('languages')->where('name', '=', $language)->first();
-        $languageId = $chk->id;
-        
-        $movie_lang = new Movie_Languages;
-        $movie_lang->movieId = $movieId;
-        $movie_lang->languageId = $languageId;
-        if ($movie_lang->save()) {
-            return $movie_lang->id;
-        }else{
-            return 'Could not save Movie_Lang';
-        }
-    }
-    
     private static function addGenres($movieId, $genre){
         
         $chk = DB::table('genres')->where('name', '=', $genre)->first();
@@ -63,6 +48,11 @@ class Movies {
         
         $data = json_decode($data, 1);
        
+        $chk = DB::table('movies')->where('name', '=', $data[0]['title'])->first();
+        if (!is_null($chk)){
+            return "Movie Already Exists";
+        }
+        
         //Add the movie to the DB
         $movie = new Movie;
         $movie->name = $data[0]['title'];
@@ -80,12 +70,6 @@ class Movies {
         $actors = $data[0]['actors'];
         foreach ($actors as $actor) {
             self::addActors($movieId, $actor);
-        }
-        
-        //Add the languages for the respective movie to the languages and movie_languages tables
-        $languages = $data[0]['language'];
-        foreach ($languages as $language) {
-            self::addLanguages($movieId, $language);
         }
         
         //Add the genres for the respective movie to the genres and movie_genres tables

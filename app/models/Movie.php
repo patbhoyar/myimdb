@@ -50,4 +50,7 @@ class Movie extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+        public function actors(){
+            return $this->belongsToMany('Actor');
+        }
 }

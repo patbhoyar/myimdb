@@ -13,8 +13,10 @@ class CreateTableMovieActors extends Migration {
     public function up() {
         Schema::create('movie_actors', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('movieId');
-            $table->integer('actorId');
+            $table->integer('movieId')->unsigned()->index();
+            $table->integer('actorId')->unsigned()->index();
+            $table->foreign('movieId')->references('id')->on('movies')->onDelete('cascade');
+            $table->foreign('actorId')->references('id')->on('actors')->onDelete('cascade');
         });
     }
 

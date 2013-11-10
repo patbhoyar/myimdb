@@ -11,7 +11,6 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		$this->call('LanguagesTableSeeder');
 		$this->call('GenresTableSeeder');
 	}
 

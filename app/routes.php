@@ -10,13 +10,11 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-
-Route::resource('genres', 'GenreController');
-Route::resource('languages', 'LanguageController');
+Route::get('movies/all', 'MovieController@allMovies');
+Route::get('movies/show/{id}', 'MovieController@showMovie');
 Route::resource('movies', 'MovieController');
+Route::resource('genres', 'GenreController');
 Route::resource('actors', 'ActorController');
 
-Route::get('/', function()
-{
-	return View::make('index');
-});
+Route::get('/', function(){ return View::make('index'); });
+Route::get('/add', function(){ return View::make('movies.add'); });
