@@ -8,7 +8,7 @@ class Util {
     /*
      * 
      */
-    private static function getCurlData($url) {
+    public static function getCurlData($url) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

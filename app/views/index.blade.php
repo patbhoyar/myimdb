@@ -11,7 +11,7 @@
 //            Util::getMovieInfo('godfather');
 //            Util::getMovieInfo('terminator');
 //            Util::getMovieInfo('andaz apna apna');
-            echo $path;
+            
             //echo constant('MY_PATH');
         ?>
 

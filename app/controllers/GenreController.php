@@ -10,10 +10,11 @@ class GenreController extends \BaseController {
     public function index() {
         $genres = DB::table('genres')->select('id', 'name')->get();
         return View::make('genres.index')->with(
-                array(
-                    'genres'    => $genres,
-                    'title'     => 'Genres'
-                ));
+                        array(
+                            'genres' => $genres,
+                            'title' => 'Genres',
+                            'page' => 'genres'
+        ));
     }
 
     /**
@@ -52,16 +53,17 @@ class GenreController extends \BaseController {
     public function showGenre($id) {
         $genre = Genre::find($id)->name;
         $movies_temp = DB::table('movie_genres')->where('genreId', '=', $id)->get();
-        
+
         $movies = array();
         foreach ($movies_temp as $movie) {
             $temp = DB::table('movies')->where('id', '=', $movie->movieId)->select('id', 'name', 'year', 'rating')->get();
             array_push($movies, $temp);
         }
-        
+
         return View::make('genres.movies')->with(array(
-           'title'      => $genre.' Movies',
-            'movies'    => $movies
+                    'title' => $genre . ' Movies',
+                    'movies' => $movies,
+                    'page' => 'genres'
         ));
     }
 

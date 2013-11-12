@@ -12,7 +12,9 @@
             @foreach($movies as $movie)
                 <tr>
                     <td>
-                        <a href="{{$website}}movies/show/{{ $movie[0]->id }}" class='genreItem'>{{$movie[0]->name." (".$movie[0]->year.") - ".$movie[0]->rating }}</a>
+                        <a href="{{$website}}movies/show/{{ $movie[0]->id }}" class='genreItem'>
+                            {{$movie[0]->name." (".$movie[0]->year.") - ".number_format($movie[0]->rating, 1, '.', '') }}
+                        </a>
                     </td>
                 </tr>
             @endforeach

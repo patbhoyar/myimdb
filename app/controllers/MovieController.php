@@ -1,7 +1,9 @@
 <?php
 
 class MovieController extends \BaseController {
-
+    
+    private static $page = 'movies';
+    
     /**
      * Display a listing of the resource.
      *
@@ -12,7 +14,8 @@ class MovieController extends \BaseController {
         return View::make('movies.index')->with(
                 array(
                     'moviesInfo'    => $movies,
-                    'title'         => 'Movies'
+                    'title'         => 'Movies',
+                    'page'          => self::$page
                 ));
     }
 
@@ -23,6 +26,13 @@ class MovieController extends \BaseController {
      */
     public function allMovies() {
         return Movie::all();
+    }
+    
+    public function addMovie(){
+        return View::make('movies.add')->with(array(
+            'title'     =>  'Add a Movie',
+            'page'      =>  self::$page
+        ));
     }
 
     /**
@@ -74,7 +84,8 @@ class MovieController extends \BaseController {
                 array(
                     'movie'     => $movie, 
                     'actors'    => $actors,
-                    'title'     => $movie->name
+                    'title'     => $movie->name,
+                    'page'      => self::$page
                 ));
     }
 

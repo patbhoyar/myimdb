@@ -81,6 +81,33 @@ class Movies {
         return "Movie Added Successfully";
     }
     
+    public static function getMovies($searchTerm){
+        require_once 'Util.php';
+        $q = urlencode(trim($searchTerm));
+        $url = "http://mymovieapi.com/?title=".$q."&type=json&plot=simple&episode=1&limit=10&yg=0&mt=none&lang=en-US&offset=&aka=simple&release=simple&business=0&tech=0";
+
+        try {
+            $data = Util::getCurlData($url);
+            $movies = json_decode($data, true);
+            
+            $op = array();
+            foreach ($movies as $movie) {
+                $temp = array(
+                    'name'  => $movie['title'],
+                    'id'    => $movie['imdb_id'],
+                    'rating'=> number_format($movie['rating'], 1, '.', ''),
+                    'year'  => $movie['year'],
+                    'poster'=> $movie['poster']['imdb'],
+                );
+                array_push($op, json_encode($temp));
+            }
+            return json_encode($op);
+        } catch (Exception $exc) {
+            echo $exc->message;
+        }
+        return false;
+    }
+    
 }
 
 ?>
