@@ -44,17 +44,18 @@ class Movies {
         }
     }
     
-    public static function addMovie($data){
-        
+    public static function addMovie($id){
+        $data = self::getMovieById($id);
         $data = json_decode($data, 1);
        
-        $chk = DB::table('movies')->where('name', '=', $data[0]['title'])->first();
+        $chk = DB::table('movies')->where('imdbId', '=', $data[0]['imdb_id'])->first();
         if (!is_null($chk)){
             return "Movie Already Exists";
         }
         
         //Add the movie to the DB
         $movie = new Movie;
+        $movie->imdbId = $data[0]['id'];
         $movie->name = $data[0]['title'];
         $movie->rating = $data[0]['rating'];
         $movie->year = $data[0]['year'];
@@ -97,11 +98,36 @@ class Movies {
                     'id'    => $movie['imdb_id'],
                     'rating'=> number_format($movie['rating'], 1, '.', ''),
                     'year'  => $movie['year'],
-                    'poster'=> $movie['poster']['imdb'],
+                    'poster'=> (isset($movie['poster']))?$movie['poster']['imdb']:null,
                 );
                 array_push($op, json_encode($temp));
             }
             return json_encode($op);
+        } catch (Exception $exc) {
+            echo $exc->message;
+        }
+        return false;
+    }
+    
+    public static function getMovieById($id){
+        require_once 'Util.php';
+        $q = urlencode(trim($id));
+        $url = "http://mymovieapi.com/?id=".$q."&type=json&plot=simple&episode=1&lang=en-US&aka=simple&release=simple&business=0&tech=0";
+
+        try {
+            $data = Util::getCurlData($url);
+            $movies = json_decode($data, true);
+            
+            if (!isset($movies['code'])) {
+                $movie = array(
+                    'name'  => $movies['title'],
+                    'id'    => $movies['imdb_id'],
+                    'rating'=> number_format($movies['rating'], 1, '.', ''),
+                    'year'  => $movies['year'],
+                    'poster'=> $movies['poster']['imdb'],
+                );
+            }
+            return json_encode($movie);
         } catch (Exception $exc) {
             echo $exc->message;
         }

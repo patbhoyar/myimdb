@@ -1,5 +1,7 @@
 @extends('master')
 
+<?php $css = array('movies'); ?>
+
 @section('content')
 
 <div class="container">
@@ -10,6 +12,11 @@
     <div id="movieData">
         <div id="movieRating"></div>
         <div id="movieActors">{{ $actors }}</div>
+        <div id="movieGenres">
+            @foreach($genres as $genre)
+                <a href="{{$website}}genres/show/{{$genre[0]->id}}" class="genreItem">{{$genre[0]->name}}</a>, 
+            @endforeach
+        </div>
         <div id="movieLanguages"></div>
         <a href="{{$movie->url}}" target="_blank">
             <button type="button" class="btn btn-warning btn-lg seen"><span class="glyphicon glyphicon-film">View on IMDB</span></button>

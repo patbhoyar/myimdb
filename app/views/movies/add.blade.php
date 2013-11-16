@@ -1,6 +1,9 @@
 @extends('master')
 
-<?php $scripts = array('addMovie'); ?>
+<?php 
+    $scripts = array('addMovie'); 
+    $css = array('movies');
+?>
 
 @section('content')
 
@@ -9,7 +12,7 @@
         <h1>Add a Movie</h1>
         
         <form>
-            <input type="text" class="form-control" placeholder="Search for a Movie..." id="searchMovie"/> <br>
+            <input type="text" class="form-control" placeholder="Search for a Movie..." id="searchMovie" autofocus/> <br>
             <button type="submit" class="btn btn-default" id="submitSearch">Search</button>
         </form>
         

@@ -80,9 +80,17 @@ class MovieController extends \BaseController {
         }
         $actors = substr($actors, 0, strlen($actors) - 2);
 
+        $genres_temp = DB::table('movie_genres')->where('movieId', '=', $id)->select('genreId')->get();
+        $genres = array();
+        foreach ($genres_temp as $genre) {
+            $genreInfo = DB::table('genres')->where('id', '=', $genre->genreId)->select('id', 'name')->get();
+            array_push($genres, $genreInfo);
+        }
+        
         return View::make('movies.show')->with(
                 array(
                     'movie'     => $movie, 
+                    'genres'    => $genres,
                     'actors'    => $actors,
                     'title'     => $movie->name,
                     'page'      => self::$page

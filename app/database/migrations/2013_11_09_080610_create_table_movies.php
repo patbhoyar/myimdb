@@ -13,6 +13,7 @@ class CreateTableMovies extends Migration {
     public function up() {
         Schema::create('movies', function(Blueprint $table) {
             $table->increments('id');
+            $table->string('imdbId');
             $table->string('name');
             $table->string('url');
             $table->float('rating');

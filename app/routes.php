@@ -30,9 +30,19 @@ Route::resource('genres', 'GenreController');
  */
 Route::resource('actors', 'ActorController');
 
+/*
+ * WatchlistController
+ */
+Route::resource('watchlist', 'WatchlistController');
+
 
 /*
  * HomeController
  */
 Route::get('/', 'HomeController@home');
 Route::get('/add', 'HomeController@addMovie');
+
+App::missing(function($exception)
+{
+    return Response::view('errors.missing', array(), 404);
+});
