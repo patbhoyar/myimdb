@@ -12,6 +12,8 @@
 //            Util::getMovieInfo('terminator');
 //            Util::getMovieInfo('andaz apna apna');
             
+Movies::addMovie("tt0100095");
+        
             //echo constant('MY_PATH');
         ?>
 

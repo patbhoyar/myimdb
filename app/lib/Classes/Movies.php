@@ -47,20 +47,22 @@ class Movies {
     public static function addMovie($id){
         $data = self::getMovieById($id);
         $data = json_decode($data, 1);
-       
-        $chk = DB::table('movies')->where('imdbId', '=', $data[0]['imdb_id'])->first();
+        
+        dd($data);
+        
+        $chk = DB::table('movies')->where('imdbId', '=', $data['imdbId'])->first();
         if (!is_null($chk)){
             return "Movie Already Exists";
         }
         
         //Add the movie to the DB
         $movie = new Movie;
-        $movie->imdbId = $data[0]['id'];
-        $movie->name = $data[0]['title'];
-        $movie->rating = $data[0]['rating'];
-        $movie->year = $data[0]['year'];
-        $movie->url = $data[0]['imdb_url'];
-        $movie->poster = (string)$data[0]['poster']['imdb'];
+        $movie->imdbId = $data['imdbId'];
+        $movie->name = $data['name'];
+        $movie->rating = $data['rating'];
+        $movie->year = $data['year'];
+        $movie->url = $data['imdb_url'];
+        $movie->poster = (string)$data['poster']['imdb'];
         if ($movie->save()) {
             $movieId = $movie->id;
         }else{
@@ -68,13 +70,13 @@ class Movies {
         }
         
         //Add the actors for the respective movie to the actors and movie_actors tables
-        $actors = $data[0]['actors'];
+        $actors = $data['actors'];
         foreach ($actors as $actor) {
             self::addActors($movieId, $actor);
         }
         
         //Add the genres for the respective movie to the genres and movie_genres tables
-        $genres = $data[0]['genres'];
+        $genres = $data['genres'];
         foreach ($genres as $genre) {
             self::addGenres($movieId, $genre);
         }
@@ -95,7 +97,7 @@ class Movies {
             foreach ($movies as $movie) {
                 $temp = array(
                     'name'  => $movie['title'],
-                    'id'    => $movie['imdb_id'],
+                    'imdbId'    => $movie['imdbId'],
                     'rating'=> number_format($movie['rating'], 1, '.', ''),
                     'year'  => $movie['year'],
                     'poster'=> (isset($movie['poster']))?$movie['poster']['imdb']:null,
@@ -110,7 +112,6 @@ class Movies {
     }
     
     public static function getMovieById($id){
-        require_once 'Util.php';
         $q = urlencode(trim($id));
         $url = "http://mymovieapi.com/?id=".$q."&type=json&plot=simple&episode=1&lang=en-US&aka=simple&release=simple&business=0&tech=0";
 
@@ -121,15 +122,15 @@ class Movies {
             if (!isset($movies['code'])) {
                 $movie = array(
                     'name'  => $movies['title'],
-                    'id'    => $movies['imdb_id'],
+                    'imdbId'    => $movies['imdb_id'],
                     'rating'=> number_format($movies['rating'], 1, '.', ''),
                     'year'  => $movies['year'],
-                    'poster'=> $movies['poster']['imdb'],
+                    'poster'=> (isset($movies['poster']))?$movies['poster']['imdb']:null,
                 );
             }
             return json_encode($movie);
         } catch (Exception $exc) {
-            echo $exc->message;
+            var_dump($exc);
         }
         return false;
     }
