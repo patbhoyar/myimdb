@@ -7,14 +7,9 @@
         </div>
         
         <?php 
-//            Util::getMovieInfo('biwi no 1');
-//            Util::getMovieInfo('godfather');
-//            Util::getMovieInfo('terminator');
-//            Util::getMovieInfo('andaz apna apna');
-            
-Movies::addMovie("tt0100095");
+           
+            var_dump(json_decode(Movies::getMovies('hera pheri')),1);
         
-            //echo constant('MY_PATH');
         ?>
 
 @endsection

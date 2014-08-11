@@ -126,5 +126,15 @@ class MovieController extends \BaseController {
     public function destroy($id) {
         //
     }
+    
+    public function ajaxSearchMovie(){
+        $result = Movies::getMovies(trim(Input::get('q')));
+        echo ($result !== false)?$result:'error';
+    }
+    
+    public function imdbGetMovieById(){
+        $result = Movies::addMovie(Input::get('q'));
+        echo ($result !== false)?$result:'error';
+    }
 
 }

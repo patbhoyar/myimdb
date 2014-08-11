@@ -48,8 +48,6 @@ class Movies {
         $data = self::getMovieById($id);
         $data = json_decode($data, 1);
         
-        dd($data);
-        
         $chk = DB::table('movies')->where('imdbId', '=', $data['imdbId'])->first();
         if (!is_null($chk)){
             return "Movie Already Exists";
@@ -62,7 +60,7 @@ class Movies {
         $movie->rating = $data['rating'];
         $movie->year = $data['year'];
         $movie->url = $data['imdb_url'];
-        $movie->poster = (string)$data['poster']['imdb'];
+        $movie->poster = (string)$data['poster'];
         if ($movie->save()) {
             $movieId = $movie->id;
         }else{
@@ -87,20 +85,18 @@ class Movies {
     public static function getMovies($searchTerm){
         require_once 'Util.php';
         $q = urlencode(trim($searchTerm));
-        $url = "http://mymovieapi.com/?title=".$q."&type=json&plot=simple&episode=1&limit=10&yg=0&mt=none&lang=en-US&offset=&aka=simple&release=simple&business=0&tech=0";
+        $url = "http://www.omdbapi.com/?s=".$q;
 
         try {
             $data = Util::getCurlData($url);
             $movies = json_decode($data, true);
             
             $op = array();
-            foreach ($movies as $movie) {
+            foreach ($movies['Search'] as $movie) {
                 $temp = array(
-                    'name'  => $movie['title'],
-                    'imdbId'    => $movie['imdbId'],
-                    'rating'=> number_format($movie['rating'], 1, '.', ''),
-                    'year'  => $movie['year'],
-                    'poster'=> (isset($movie['poster']))?$movie['poster']['imdb']:null,
+                    'name'  => $movie['Title'],
+                    'imdbId'    => $movie['imdbID'],
+                    'year'  => $movie['Year']
                 );
                 array_push($op, json_encode($temp));
             }
@@ -112,8 +108,9 @@ class Movies {
     }
     
     public static function getMovieById($id){
+        require_once 'Util.php';
         $q = urlencode(trim($id));
-        $url = "http://mymovieapi.com/?id=".$q."&type=json&plot=simple&episode=1&lang=en-US&aka=simple&release=simple&business=0&tech=0";
+        $url = "http://www.omdbapi.com/?i=".$q;
 
         try {
             $data = Util::getCurlData($url);
@@ -121,14 +118,17 @@ class Movies {
             
             if (!isset($movies['code'])) {
                 $movie = array(
-                    'name'  => $movies['title'],
-                    'imdbId'    => $movies['imdb_id'],
-                    'rating'=> number_format($movies['rating'], 1, '.', ''),
-                    'year'  => $movies['year'],
-                    'poster'=> (isset($movies['poster']))?$movies['poster']['imdb']:null,
+                    'name'  => $movies['Title'],
+                    'imdbId'    => $movies['imdbID'],
+                    'rating'=> number_format($movies['imdbRating'], 1, '.', ''),
+                    'year'  => $movies['Year'],
+                    'genres'  => explode(", ", $movies['Genre']),
+                    'imdb_url'  => 'http://www.imdb.com/title/'.$movies['imdbID'],
+                    'actors'  => explode(", ", $movies['Actors']),
+                    'poster'=> (isset($movies['Poster']))?$movies['Poster']:null,
                 );
+                return json_encode($movie);
             }
-            return json_encode($movie);
         } catch (Exception $exc) {
             var_dump($exc);
         }

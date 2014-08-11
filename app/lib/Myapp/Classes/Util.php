@@ -24,17 +24,19 @@ class Util {
     public static function getMovieInfo($name) {
         
         $name = urlencode(trim($name));
-        $url = "http://mymovieapi.com/?title=".$name."&type=json&plot=simple&episode=1&limit=1&yg=0&mt=none&lang=en-US&offset=&aka=simple&release=simple&business=0&tech=0";
+        $url = "http://www.omdbapi.com/?s=".$name;
         
         $data = self::getCurlData($url);
 
-        try {
-            $movieInfo = Movies::addMovie($data);
-            return $url;
-        } catch (Exception $exc) {
-            echo $exc->message;
-        }
-        return "hmm";
+//        try {
+//            $movieInfo = Movies::addMovie($data);
+//            return $url;
+//        } catch (Exception $exc) {
+//            echo $exc->message;
+//        }
+//        return "hmm";
+        var_dump($data);
+        
     }
     
 }

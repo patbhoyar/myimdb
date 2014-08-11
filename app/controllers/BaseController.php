@@ -14,7 +14,7 @@ class BaseController extends Controller {
     }
     
     public function __construct() {
-        require_once $_SERVER['DOCUMENT_ROOT'].'/projects/movies/app/lib/lang/en.php';
+        require_once $_SERVER['DOCUMENT_ROOT'].'/projects/movies/app/lib/Myapp/lang/en.php';
         View::share('path', constant('MY_PATH'));
         View::share('webroot', constant('WEBROOT'));
         View::share('website', constant('WEBSITE'));

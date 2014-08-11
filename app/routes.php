@@ -18,6 +18,8 @@ Route::get('movies/all', 'MovieController@allMovies');
 Route::get('movies/add', 'MovieController@addMovie');
 Route::get('movies/show/{id}', 'MovieController@showMovie');
 Route::resource('movies', 'MovieController');
+Route::post('movies/imdbSearch', 'MovieController@ajaxSearchMovie');
+Route::post('movies/imdbGetMovieById', 'MovieController@imdbGetMovieById');
 
 /*
  * GenreController

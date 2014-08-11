@@ -6,8 +6,8 @@ $(function() {
         
         $.ajax({
             type: 'POST',
-            url: '../../app/lib/ajaxServer.php',
-            data: {request:'searchMovie', q: movie},
+            url: '../../public/movies/imdbSearch',
+            data: {q: movie},
             success: function(data){
                 
                 $('#moviesList').html("");
@@ -17,9 +17,8 @@ $(function() {
                 
                 for (var i = 0; i < movies.length; i++) {
                     var movie = $.parseJSON(movies[i]);
-                    var x = "<div class='movie' id='"+movie['id']+"'><img src='"+movie['poster']+"' alt='"+movie['name']+"' width='43' height='64' class='poster'/>";
-                    x += "<div class='movieInfo'>";
-                    x += movie['name']+" ("+movie['year']+")<div class='rating'>"+movie['rating']+"</div></div><div class='btn btn-primary selectMovie'>Select</div></div>";
+                    var x = "<div class='searchMovieContainer' id='"+movie['imdbId']+"'><div class='movieTitle'>";
+                    x += movie['name']+" ("+movie['year']+")</div><div class='btn btn-primary selectMovie'>Select</div></div>";
                     $('#moviesList').append(x);
                 }
             }
@@ -33,8 +32,8 @@ $(function() {
         
         $.ajax({
             type: 'POST',
-            url: '../../app/lib/ajaxServer.php',
-            data: {request:'addMovie', q: movieId},
+            url: '../../public/movies/imdbGetMovieById',
+            data: {q: movieId},
             success: function(data){
                 console.log(data);
             }
