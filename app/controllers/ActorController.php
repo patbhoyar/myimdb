@@ -9,7 +9,14 @@ class ActorController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$actors = Actor::all();
+
+        $allActors = array();
+        foreach($actors as $actor){
+            $act = array('id' => $actor->id, 'name' => $actor->name);
+            array_push($allActors, $act);
+        }
+        return View::make('actors.index', array('actors' => $allActors));
 	}
 
 	/**

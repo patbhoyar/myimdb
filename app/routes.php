@@ -31,6 +31,7 @@ Route::resource('genres', 'GenreController');
  * ActorController
  */
 Route::resource('actors', 'ActorController');
+//Route::get('actors', 'ActorController@showAllActors');
 
 /*
  * WatchlistController
