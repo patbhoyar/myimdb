@@ -10,7 +10,7 @@
             </thead>
             <tbody>
             @foreach($genres as $genre)
-                <tr><td><a href="genres/show/{{$genre->id}}" class="genreItem">{{$genre->name}}</a> <span class="glyphicon glyphicon-chevron-right"></span></td></tr>
+                <tr><td><a href="genres/{{$genre->id}}" class="genreItem">{{$genre->name}}</a> <span class="glyphicon glyphicon-chevron-right"></span></td></tr>
             @endforeach
             </tbody>
         </table>

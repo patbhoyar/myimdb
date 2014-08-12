@@ -13,7 +13,7 @@ class ActorController extends \BaseController {
 
         $allActors = array();
         foreach($actors as $actor){
-            $act = array('id' => $actor->id, 'name' => $actor->name);
+            $act = ['id' => $actor->id, 'name' => $actor->name];
             array_push($allActors, $act);
         }
         return View::make('actors.index', array('actors' => $allActors));
@@ -47,7 +47,26 @@ class ActorController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$actor = Actor::find($id);
+        $movies = Movie_Actors::where('actorId', '=', $id)->get();
+
+        $moviesInfo = array();
+        foreach($movies as $movie){
+            $temp = Movie::where('id', '=', $movie['movieId'])->get();
+            $movieInfo = [
+                'id'        =>  $movie['movieId'],
+                'name'      =>  $temp[0]->name,
+                'imdbId'    =>  $temp[0]->imdbId,
+                'rating'    =>  $temp[0]->rating,
+                'year'      =>  $temp[0]->year,
+                'imdbURL'   =>  $temp[0]->url,
+                'poster'    =>  $temp[0]->poster,
+                'seen'      =>  $temp[0]->seen
+            ];
+            array_push($moviesInfo, $movieInfo);
+        }
+
+        return View::make('actors.movies', array('actorName' => $actor[0]['name'], 'moviesInfo' => $moviesInfo));
 	}
 
 	/**

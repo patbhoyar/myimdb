@@ -137,4 +137,12 @@ class MovieController extends \BaseController {
         echo ($result !== false)?$result:'error';
     }
 
+    public function movieSeen(){
+        $movie = Movie::find(Input::get('movieId'));
+        if($movie->seen == 1)
+            $movie->seen = 0;
+        else
+            $movie->seen = 1;
+        $movie->save();
+    }
 }

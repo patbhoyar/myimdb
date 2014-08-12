@@ -74,7 +74,20 @@ class GenreController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        //
+        $genre = Genre::find($id)->name;
+        $movies_temp = DB::table('movie_genres')->where('genreId', '=', $id)->get();
+
+        $movies = array();
+        foreach ($movies_temp as $movie) {
+            $temp = DB::table('movies')->where('id', '=', $movie->movieId)->select('id', 'name', 'year', 'rating')->get();
+            array_push($movies, $temp);
+        }
+
+        return View::make('genres.movies')->with(array(
+            'title' => $genre . ' Movies',
+            'movies' => $movies,
+            'page' => 'genres'
+        ));
     }
 
     /**

@@ -1,0 +1,28 @@
+/*
+    Used by movies/show/1
+*/
+
+#showMoviePoster{
+    margin: 10px 0;
+    width: 300px;
+    height: auto;
+    float: left;
+}
+
+#showMovieActors, #showMovieGenres, #showMovieRating{
+    font-size: 18px;
+}
+
+#showMovieRating{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.showMovieInfoContainer {
+    margin: 50px 0 0 330px;
+}
+
+.showMovieInfoContainer button{
+    margin: 30px 12px 0 0;
+    float: left;
+}

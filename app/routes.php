@@ -20,18 +20,18 @@ Route::get('movies/show/{id}', 'MovieController@showMovie');
 Route::resource('movies', 'MovieController');
 Route::post('movies/imdbSearch', 'MovieController@ajaxSearchMovie');
 Route::post('movies/imdbGetMovieById', 'MovieController@imdbGetMovieById');
+Route::post('movies/seen', 'MovieController@movieSeen');
 
 /*
  * GenreController
  */
-Route::get('genres/show/{id}', 'GenreController@showGenre');
 Route::resource('genres', 'GenreController');
 
 /*
  * ActorController
  */
 Route::resource('actors', 'ActorController');
-//Route::get('actors', 'ActorController@showAllActors');
+//Route::get('actor/{id}', 'ActorController@getActor');
 
 /*
  * WatchlistController

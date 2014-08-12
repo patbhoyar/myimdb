@@ -1,5 +1,10 @@
 @extends('master')
-<?php $title = 'List of Actors'; $page='actors'; ?>
+
+<?php
+    $title = 'List of Actors';
+    $page='actors';
+    $css = array('actors');
+?>
 @section('content')
 
 <div class="container">
@@ -7,7 +12,7 @@
 
     @foreach($actors as $actor)
         <div class="actorContainer">
-            {{ HTML::link('actor/'.$actor['id'], $actor['name']); }}
+            {{ HTML::link('actors/'.$actor['id'], $actor['name']); }}
         </div>
     @endforeach
 </div>
