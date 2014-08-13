@@ -18,7 +18,7 @@
         <div id="showMovieGenres">
             <b>Genres: </b>
             @foreach($genres as $genre)
-                <a href="{{$website}}genres/show/{{$genre[0]->id}}" class="showGenreItem">{{$genre[0]->name}}</a>,
+                <a href="{{$website}}genres/{{$genre[0]->id}}" class="showGenreItem">{{$genre[0]->name}}</a>,
             @endforeach
         </div>
         <a href="{{$movie->url}}" target="_blank">
@@ -26,12 +26,12 @@
         </a>
 
         @if($movie->seen == 0)
-        <button type="button" class="btn btn-default btn-lg seen"><span class="glyphicon glyphicon-eye-close"></span></button>
+        <button type="button" class="btn btn-default btn-lg seen" title="Have you seen this movie?"><span class="glyphicon glyphicon-eye-close"></span></button>
         @else
-        <button type="button" class="btn btn-success btn-lg seen"><span class="glyphicon glyphicon-eye-open"></span></button>
+        <button type="button" class="btn btn-success btn-lg seen" title="Have you seen this movie?"><span class="glyphicon glyphicon-eye-open"></span></button>
         @endif
 
-        <button type="button" class="btn btn-default btn-lg watchlist"><span class="glyphicon glyphicon-plus-sign"></span>Watchlist</button>
+        <button type="button" class="btn btn-default btn-lg watchlist" title="Add this movie to your Watchlist?"><span class="glyphicon glyphicon-plus-sign"></span>Watchlist</button>
 
     </div>
 </div>

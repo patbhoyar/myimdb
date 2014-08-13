@@ -21,6 +21,7 @@ Route::resource('movies', 'MovieController');
 Route::post('movies/imdbSearch', 'MovieController@ajaxSearchMovie');
 Route::post('movies/imdbGetMovieById', 'MovieController@imdbGetMovieById');
 Route::post('movies/seen', 'MovieController@movieSeen');
+Route::post('movies/watchlist', 'MovieController@addToWatchlist');
 
 /*
  * GenreController
@@ -31,7 +32,7 @@ Route::resource('genres', 'GenreController');
  * ActorController
  */
 Route::resource('actors', 'ActorController');
-//Route::get('actor/{id}', 'ActorController@getActor');
+Route::get('actors/{id}/movies', 'ActorController@showMovies');
 
 /*
  * WatchlistController

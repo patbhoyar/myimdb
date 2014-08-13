@@ -20,6 +20,7 @@ class CreateTableMovies extends Migration {
             $table->integer('seen')->default(0);
             $table->integer('year')->default(0);
             $table->string('poster');
+            $table->integer('watchlist')->default(0);
         });
     }
 

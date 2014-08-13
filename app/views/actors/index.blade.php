@@ -12,7 +12,7 @@
 
     @foreach($actors as $actor)
         <div class="actorContainer">
-            {{ HTML::link('actors/'.$actor['id'], $actor['name']); }}
+            {{ HTML::link('actors/'.$actor['id'].'/movies', $actor['name']); }}
         </div>
     @endforeach
 </div>

@@ -102,7 +102,7 @@ class Movies {
             }
             return json_encode($op);
         } catch (Exception $exc) {
-            echo $exc->message;
+            dd($exc);
         }
         return false;
     }

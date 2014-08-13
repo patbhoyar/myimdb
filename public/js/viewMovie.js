@@ -27,4 +27,26 @@ $(document).ready(function(){
         });
     });
 
+    $(document).on('click', '.watchlist', function(){
+
+        myBtn = $(this);
+        $.ajax({
+            type: 'POST',
+            url: root+'movies/watchlist',
+            data: {movieId: $(this).parent().attr('id')},
+            success: function(data){
+                console.log(data);
+                if(data == "success"){
+                    if(myBtn.hasClass('btn-default')){
+                        myBtn.removeClass('btn-default').addClass('btn-danger');
+                    }else{
+                        myBtn.removeClass('btn-danger').addClass('btn-default');
+                    }
+                }else{
+                    alert('There was a problem updating the DB. Please try again later!');
+                }
+            }
+        });
+    });
+
 });

@@ -9,7 +9,6 @@
         <?php 
            
             var_dump(json_decode(Movies::getMovies('hera pheri')),1);
-        
         ?>
 
 @endsection

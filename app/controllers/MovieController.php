@@ -139,10 +139,21 @@ class MovieController extends \BaseController {
 
     public function movieSeen(){
         $movie = Movie::find(Input::get('movieId'));
-        if($movie->seen == 1)
-            $movie->seen = 0;
+        return self::movieSeenOrWatchlist($movie, 'seen');
+    }
+
+    public function addToWatchlist(){
+        $movie = Movie::find(Input::get('movieId'));
+        return self::movieSeenOrWatchlist($movie, 'watchlist');
+    }
+
+    private static function movieSeenOrWatchlist($movie, $param){
+
+        if($movie->$param == 1)
+            $movie->$param = 0;
         else
-            $movie->seen = 1;
+            $movie->$param = 1;
         $movie->save();
+        return "success";
     }
 }

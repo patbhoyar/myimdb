@@ -9,7 +9,10 @@ class WatchlistController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$movies = Movie::where('watchlist', '=', '1')->get();
+        foreach($movies as $movie){
+            echo $movie->name."<br>";
+        }
 	}
 
 	/**

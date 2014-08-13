@@ -45,7 +45,7 @@ class ActorController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function showMovies($id)
 	{
 		$actor = Actor::find($id);
         $movies = Movie_Actors::where('actorId', '=', $id)->get();
@@ -66,7 +66,7 @@ class ActorController extends \BaseController {
             array_push($moviesInfo, $movieInfo);
         }
 
-        return View::make('actors.movies', array('actorName' => $actor[0]['name'], 'moviesInfo' => $moviesInfo));
+        return View::make('actors.movies', array('actorName' => $actor->name, 'moviesInfo' => $moviesInfo));
 	}
 
 	/**
